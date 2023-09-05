@@ -42,7 +42,7 @@ def title(slide):
     slide.box().image("layout_images/title_slide_bg.png")
     slide = slide.overlay(width="40%", p_left=100, p_top=500)
     slide.box(width="fill").text("Retro ROS 2 Launch", style="title")
-    slide.box(width="fill").text("Make ROS Easy Again!", style="subtitle")
+    slide.box(width="fill").text("Remember XML files?", style="subtitle")
     slide.box(width="fill", p_top=10).text("September 5, 2023")
     slide.box(width="fill", p_top=180).text("Tyler Weaver", style="bold")
     slide.box(width="fill").text("Staff Software Engineer\ntyler@picknik.ai")
