@@ -1,0 +1,121 @@
+/**:
+  ros__parameters:
+    default_planning_pipeline: ompl
+    planning_pipelines:
+      - ompl
+      - stomp
+      - pilz_industrial_motion_planner
+    ompl:
+      planning_plugin: ompl_interface/OMPLPlanner
+      start_state_max_bounds_error: 0.1
+      jiggle_fraction: 0.05
+      request_adapters: >-
+          default_planner_request_adapters/AddTimeOptimalParameterization
+          default_planner_request_adapters/ResolveConstraintFrames
+          default_planner_request_adapters/FixWorkspaceBounds
+          default_planner_request_adapters/FixStartStateBounds
+          default_planner_request_adapters/FixStartStateCollision
+          default_planner_request_adapters/FixStartStatePathConstraints
+    robot_description_kinematics:
+      manipulator:
+        kinematics_solver: "kdl_kinematics_plugin/KDLKinematicsPlugin"
+        kinematics_solver_search_resolution: 0.005
+        kinematics_solver_timeout: 0.005
+    robot_description_planning:
+      cartesian_limits:
+        max_trans_vel: 1.0
+        max_trans_acc: 2.25
+        max_trans_dec: -5.0
+        max_rot_vel: 1.57
+      default_velocity_scaling_factor: 0.1
+      default_acceleration_scaling_factor: 0.1
+      joint_limits:
+        joint_1:
+          has_velocity_limits: true
+          max_velocity: 1.3963000000000001
+          has_acceleration_limits: true
+          max_acceleration: 8.6
+        joint_2:
+          has_velocity_limits: true
+          max_velocity: 1.3963000000000001
+          has_acceleration_limits: true
+          max_acceleration: 8.6
+        joint_3:
+          has_velocity_limits: true
+          max_velocity: 1.3963000000000001
+          has_acceleration_limits: true
+          max_acceleration: 8.6
+        joint_4:
+          has_velocity_limits: true
+          max_velocity: 1.3963000000000001
+          has_acceleration_limits: true
+          max_acceleration: 8.6
+        joint_5:
+          has_velocity_limits: true
+          max_velocity: 1.2218
+          has_acceleration_limits: true
+          max_acceleration: 8.6
+        joint_6:
+          has_velocity_limits: true
+          max_velocity: 1.2218
+          has_acceleration_limits: true
+          max_acceleration: 8.6
+        joint_7:
+          has_velocity_limits: true
+          max_velocity: 1.2218
+          has_acceleration_limits: true
+          max_acceleration: 8.6
+        robotiq_85_left_knuckle_joint:
+          has_velocity_limits: true
+          max_velocity: 0.5
+          has_acceleration_limits: true
+          max_acceleration: 1.0
+    stomp:
+      planning_plugin: stomp_moveit/StompPlanner
+      request_adapters: >-
+        default_planner_request_adapters/AddTimeOptimalParameterization
+        default_planner_request_adapters/ResolveConstraintFrames
+        default_planner_request_adapters/FixWorkspaceBounds
+        default_planner_request_adapters/FixStartStateBounds
+        default_planner_request_adapters/FixStartStateCollision
+        default_planner_request_adapters/FixStartStatePathConstraints
+      stomp_moveit:
+        num_timesteps: 60
+        num_iterations: 40
+        num_iterations_after_valid: 0
+        num_rollouts: 30
+        max_rollouts: 30
+        exponentiated_cost_sensitivity: 0.8
+        control_cost_weight: 0.1
+        delta_t: 0.1
+    pilz_industrial_motion_planner:
+      planning_plugin: pilz_industrial_motion_planner/CommandPlanner
+      request_adapters: ""
+      default_planner_config: PTP
+      capabilities: >-
+          pilz_industrial_motion_planner/MoveGroupSequenceAction
+          pilz_industrial_motion_planner/MoveGroupSequenceService
+
+    moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+    moveit_simple_controller_manager:
+      controller_names:
+        - joint_trajectory_controller
+        - robotiq_gripper_controller
+      joint_trajectory_controller:
+        type: FollowJointTrajectory
+        joints:
+          - joint_1
+          - joint_2
+          - joint_3
+          - joint_4
+          - joint_5
+          - joint_6
+          - joint_7
+        action_ns: follow_joint_trajectory
+        default: true
+      robotiq_gripper_controller:
+        type: GripperCommand
+        joints:
+          - robotiq_85_left_knuckle_joint
+        action_ns: gripper_cmd
+        default: true
