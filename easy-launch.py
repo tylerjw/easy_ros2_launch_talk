@@ -32,6 +32,8 @@ black_text = slides.get_style("default")
 black_text.color = "black"
 slides.set_style("black", black_text)
 
+slides.set_style("link", elsie.TextStyle(color="blue"))
+
 @slides.slide()
 def title(slide):
   slide.box().image("layout_images/title_slide_bg.png")
@@ -229,7 +231,6 @@ mapping values are not allowed here
   text_box = content.box(width="fill")
   text_box.update_style("default", elsie.TextStyle(color="black"))
   text_box.update_style("tt", elsie.TextStyle(color="green"))
-  text_box.set_style("link", elsie.TextStyle(color="blue"))
   lst = unordered_list(text_box)
   lst.item().text("SRDF parameter loaded into variable ~tt{robot_description_semantic}")
   lst.item().text("value attribute is parsed as yaml")
@@ -245,7 +246,6 @@ def recovery(slide):
   text_box = content.box(width="fill")
   text_box.update_style("default", elsie.TextStyle(color="black"))
   text_box.update_style("tt", elsie.TextStyle(color="green"))
-  text_box.set_style("link", elsie.TextStyle(color="blue"))
   lst = unordered_list(text_box)
   lst.item().text("Try quoting string to get it to stop parsing")
   lst.item(show="2+").text("Realize error is parsing comment")
@@ -262,17 +262,19 @@ def better_place(slide):
   text_box = content.box(width="fill")
   text_box.update_style("default", elsie.TextStyle(color="black"))
   text_box.update_style("bold", elsie.TextStyle(color="black"))
-  text_box.set_style("link", elsie.TextStyle(color="blue"))
   lst = unordered_list(text_box)
   lst.item().text("Launch demo with ~bold{43} lines of XML vs ~bold{>500} lines of Python")
   lst.item().text("Single ~code{moveit.yaml} config for MoveIt")
   lst.item().text("ROS 2 XML Launch Docs: ~link{docs.ros.org/en/rolling/How-To-Guides/\nMigrating-from-ROS1/Migrating-Launch-Files.html}")
   lst.item().text("Comparing Python/XML/YAML: ~link{docs.ros.org/en/rolling/How-To-Guides/\nLaunch-file-different-formats.html}")
+  lst.item().text("Source: ~link{github.com/tylerjw/easy_ros2_launch_talk}")
 
 @slides.slide(debug_boxes=False)
 def thank_you(slide):
   bg = slide.box().image("layout_images/thank_you_bg.png")
-  slide = slide.overlay()
+  slide = slide.overlay(p_top=800)
+  slide.update_style("default", elsie.TextStyle(align="middle"))
+  slide.text("github.com/tylerjw/easy_ros2_launch_talk")
 
 slides.render("easy-launch.pdf")
 
