@@ -5,7 +5,9 @@ from elsie.ext import unordered_list
 
 slides = elsie.SlideDeck(width=1920, height=1080)
 
-slides.update_style("default", elsie.TextStyle(font="Lato", align="left", size=48, color="white"))
+slides.update_style(
+    "default", elsie.TextStyle(font="Lato", align="left", size=48, color="white")
+)
 slides.update_style("code", elsie.TextStyle(size=36))
 
 title = slides.get_style("default")
@@ -34,38 +36,46 @@ slides.set_style("black", black_text)
 
 slides.set_style("link", elsie.TextStyle(color="blue"))
 
+
 @slides.slide()
 def title(slide):
-  slide.box().image("layout_images/title_slide_bg.png")
-  slide = slide.overlay(width="40%", p_left=100, p_top=500)
-  slide.box(width="fill").text("Retro ROS 2 Launch", style="title")
-  slide.box(width="fill").text("Make ROS Easy Again!", style="subtitle")
-  slide.box(width="fill", p_top=10).text("September 5, 2023")
-  slide.box(width="fill", p_top=180).text("Tyler Weaver", style="bold")
-  slide.box(width="fill").text("Staff Software Engineer\ntyler@picknik.ai")
+    slide.box().image("layout_images/title_slide_bg.png")
+    slide = slide.overlay(width="40%", p_left=100, p_top=500)
+    slide.box(width="fill").text("Retro ROS 2 Launch", style="title")
+    slide.box(width="fill").text("Make ROS Easy Again!", style="subtitle")
+    slide.box(width="fill", p_top=10).text("September 5, 2023")
+    slide.box(width="fill", p_top=180).text("Tyler Weaver", style="bold")
+    slide.box(width="fill").text("Staff Software Engineer\ntyler@picknik.ai")
+
 
 @slides.slide()
 def author(slide):
-  bg = slide.box().image("layout_images/layout_3_bg.png")
-  slide = slide.overlay()
-  header = slide.box(width="fill", height="20%", p_left=120).text("Tyler Weaver", style="header")
-  content = slide.fbox(horizontal=True)
-  text_area = content.box(width="50%", p_left=120)
-  text_area.update_style("default", elsie.TextStyle(color="black"))
-  image_area = content.box(width="fill").image("images/kart.jpg")
-  lst = unordered_list(text_area)
-  lst.item().text("Racing Kart Driver")
-  lst.item().text("MoveIt Maintainer")
-  lst.item().text("Rust Evangelist")
-  lst.item().text("Docker Skeptic")
+    bg = slide.box().image("layout_images/layout_3_bg.png")
+    slide = slide.overlay()
+    header = slide.box(width="fill", height="20%", p_left=120).text(
+        "Tyler Weaver", style="header"
+    )
+    content = slide.fbox(horizontal=True)
+    text_area = content.box(width="50%", p_left=120)
+    text_area.update_style("default", elsie.TextStyle(color="black"))
+    image_area = content.box(width="fill").image("images/kart.jpg")
+    lst = unordered_list(text_area)
+    lst.item().text("Racing Kart Driver")
+    lst.item().text("MoveIt Maintainer")
+    lst.item().text("Rust Evangelist")
+    lst.item().text("Docker Skeptic")
 
 
 @slides.slide(debug_boxes=False)
 def comfort_zone(slide):
-  bg = slide.box().image("layout_images/layout_3_bg.png")
-  slide = slide.overlay()
-  header = slide.box(width="fill", height="20%", p_left=120).text("Comfort Zone: ROS 1 Launch", style="header")
-  content = slide.fbox(width="fill", p_left=120, p_top=60).code("xml", """
+    bg = slide.box().image("layout_images/layout_3_bg.png")
+    slide = slide.overlay()
+    header = slide.box(width="fill", height="20%", p_left=120).text(
+        "Comfort Zone: ROS 1 Launch", style="header"
+    )
+    content = slide.fbox(width="fill", p_left=120, p_top=60).code(
+        "xml",
+        """
 <launch>
   <arg name="pipeline" default="ompl" />
   <arg name="capabilities" default=""/>
@@ -76,17 +86,23 @@ def comfort_zone(slide):
     <param name="capabilities" value="$(arg capabilities)" />
   </node>
 </launch>
-  """)
+  """,
+    )
+
 
 @slides.slide()
 def trigger(slide):
-  bg = slide.box().image("layout_images/layout_8_bg.png")
-  slide = slide.overlay()
-  slide.update_style("code", elsie.TextStyle(size=16))
-  slide.update_style("header", elsie.TextStyle(color="black"))
-  header = slide.box(width="fill", height="20%", p_left=120).text("Trigger: ROS 2 Launch", style="header")
-  content = slide.fbox(horizontal=True)
-  content.box(width="50%", height="fill", p_left=120).code("python", """
+    bg = slide.box().image("layout_images/layout_8_bg.png")
+    slide = slide.overlay()
+    slide.update_style("code", elsie.TextStyle(size=16))
+    slide.update_style("header", elsie.TextStyle(color="black"))
+    header = slide.box(width="fill", height="20%", p_left=120).text(
+        "Trigger: ROS 2 Launch", style="header"
+    )
+    content = slide.fbox(horizontal=True)
+    content.box(width="50%", height="fill", p_left=120).code(
+        "python",
+        """
 import os
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, OpaqueFunction
@@ -126,8 +142,11 @@ def launch_setup(context, *args, **kwargs):
         .planning_pipelines(pipelines=["ompl", "stomp", "pilz_industrial_motion_planner"])
         .to_moveit_configs()
     )
-  """)
-  content.box(width="50%").code("python", """
+  """,
+    )
+    content.box(width="50%").code(
+        "python",
+        """
     # Start the actual move_group node/action server
     run_move_group_node = Node(
         package="moveit_ros_move_group",
@@ -181,11 +200,15 @@ def launch_setup(context, *args, **kwargs):
     ]
 
     return nodes_to_start
-  """)
+  """,
+    )
+
 
 @slides.slide(debug_boxes=False)
 def initial_success(slide):
-  content = slide.box(width="fill", p_left=30, p_top=60).code("xml", """
+    content = slide.box(width="fill", p_left=30, p_top=60).code(
+        "xml",
+        """
 <launch>
   <arg name="robot_ip" default="xxx.yyy.zzz.www" />
   <arg name="use_fake_hardware" default="true" />
@@ -207,74 +230,101 @@ def initial_success(slide):
     <param from="$(find-pkg-share cpp_parameters)/config/moveit.yaml" />
   </node>
 </launch>
-  """)
+  """,
+    )
+
 
 @slides.slide(debug_boxes=False)
 def crisis(slide):
-  bg = slide.box().image("layout_images/layout_3_bg.png")
-  slide = slide.overlay()
-  header = slide.box(width="fill", height="20%", p_left=120).text("Crisis: YAML parsing of params", style="header")
-  content = slide.fbox(width="fill", p_left=120, p_top=60)
-  content.box(width="fill").code("xml", """
+    bg = slide.box().image("layout_images/layout_3_bg.png")
+    slide = slide.overlay()
+    header = slide.box(width="fill", height="20%", p_left=120).text(
+        "Crisis: YAML parsing of params", style="header"
+    )
+    content = slide.fbox(width="fill", p_left=120, p_top=60)
+    content.box(width="fill").code(
+        "xml",
+        """
 <let name="robot_description_semantic"
     value="$(command 'xacro $(find-pkg-share kinova_moveit_config)/config/gen3.srdf')"
   />
 ...
 <param name="robot_description_semantic" value="$(var robot_description_semantic)" />
-  """)
-  content.box(width="fill").rect(bg_color="black").text("""' using yaml rules: yaml.safe_load() failed
+  """,
+    )
+    content.box(width="fill").rect(bg_color="black").text(
+        """' using yaml rules: yaml.safe_load() failed
 mapping values are not allowed here
   in "<unicode string>", line 11, column 13:
       <!--GROUPS: Representation of a set of joi ...
                 ^
-""", style="tt")
-  text_box = content.box(width="fill")
-  text_box.update_style("default", elsie.TextStyle(color="black"))
-  text_box.update_style("tt", elsie.TextStyle(color="green"))
-  lst = unordered_list(text_box)
-  lst.item().text("SRDF parameter loaded into variable ~tt{robot_description_semantic}")
-  lst.item().text("value attribute is parsed as yaml")
-  lst.item().text("yaml parser fails when it finds ~tt{:} character")
-  lst.item().text("Open issue on ros2/launch: ~link{https://github.com/ros2/launch/issues/729}")
+""",
+        style="tt",
+    )
+    text_box = content.box(width="fill")
+    text_box.update_style("default", elsie.TextStyle(color="black"))
+    text_box.update_style("tt", elsie.TextStyle(color="green"))
+    lst = unordered_list(text_box)
+    lst.item().text(
+        "SRDF parameter loaded into variable ~tt{robot_description_semantic}"
+    )
+    lst.item().text("value attribute is parsed as yaml")
+    lst.item().text("yaml parser fails when it finds ~tt{:} character")
+    lst.item().text(
+        "Open issue on ros2/launch: ~link{https://github.com/ros2/launch/issues/729}"
+    )
+
 
 @slides.slide(debug_boxes=False)
 def recovery(slide):
-  bg = slide.box().image("layout_images/layout_3_bg.png")
-  slide = slide.overlay()
-  header = slide.box(width="fill", height="20%", p_left=120).text("Recovery?", style="header")
-  content = slide.fbox(width="fill", p_left=120, p_top=60)
-  text_box = content.box(width="fill")
-  text_box.update_style("default", elsie.TextStyle(color="black"))
-  text_box.update_style("tt", elsie.TextStyle(color="green"))
-  lst = unordered_list(text_box)
-  lst.item().text("Try quoting string to get it to stop parsing")
-  lst.item(show="2+").text("Realize error is parsing comment")
-  lst.item(show="3+").text("Remove ~tt{:} character from comment in ~tt{srdf} files")
-  lst.item(show="4+").text("Profit!")
-  content.box(show="4+").image("images/rviz.png")
+    bg = slide.box().image("layout_images/layout_3_bg.png")
+    slide = slide.overlay()
+    header = slide.box(width="fill", height="20%", p_left=120).text(
+        "Recovery?", style="header"
+    )
+    content = slide.fbox(width="fill", p_left=120, p_top=60)
+    text_box = content.box(width="fill")
+    text_box.update_style("default", elsie.TextStyle(color="black"))
+    text_box.update_style("tt", elsie.TextStyle(color="green"))
+    lst = unordered_list(text_box)
+    lst.item().text("Try quoting string to get it to stop parsing")
+    lst.item(show="2+").text("Realize error is parsing comment")
+    lst.item(show="3+").text("Remove ~tt{:} character from comment in ~tt{srdf} files")
+    lst.item(show="4+").text("Profit!")
+    content.box(show="4+").image("images/rviz.png")
+
 
 @slides.slide(debug_boxes=False)
 def better_place(slide):
-  bg = slide.box().image("layout_images/layout_3_bg.png")
-  slide = slide.overlay()
-  header = slide.box(width="fill", height="20%", p_left=120).text("Better Place: ROS 2 XML Launch", style="header")
-  content = slide.fbox(width="fill", p_left=120, p_top=60)
-  text_box = content.box(width="fill")
-  text_box.update_style("default", elsie.TextStyle(color="black"))
-  text_box.update_style("bold", elsie.TextStyle(color="black"))
-  lst = unordered_list(text_box)
-  lst.item().text("Launch demo with ~bold{43} lines of XML vs ~bold{>500} lines of Python")
-  lst.item().text("Single ~code{moveit.yaml} config for MoveIt")
-  lst.item().text("ROS 2 XML Launch Docs: ~link{docs.ros.org/en/rolling/How-To-Guides/\nMigrating-from-ROS1/Migrating-Launch-Files.html}")
-  lst.item().text("Comparing Python/XML/YAML: ~link{docs.ros.org/en/rolling/How-To-Guides/\nLaunch-file-different-formats.html}")
-  lst.item().text("Source: ~link{github.com/tylerjw/easy_ros2_launch_talk}")
+    bg = slide.box().image("layout_images/layout_3_bg.png")
+    slide = slide.overlay()
+    header = slide.box(width="fill", height="20%", p_left=120).text(
+        "Better Place: ROS 2 XML Launch", style="header"
+    )
+    content = slide.fbox(width="fill", p_left=120, p_top=60)
+    text_box = content.box(width="fill")
+    text_box.update_style("default", elsie.TextStyle(color="black"))
+    text_box.update_style("bold", elsie.TextStyle(color="black"))
+    lst = unordered_list(text_box)
+    lst.item().text(
+        "Launch demo with ~bold{43} lines of XML vs ~bold{>500} lines of Python"
+    )
+    lst.item().text("Single ~code{moveit.yaml} config for MoveIt")
+    lst.item().text(
+        "ROS 2 XML Launch Docs: ~link{docs.ros.org/en/rolling/How-To-Guides/\nMigrating-from-ROS1/Migrating-Launch-Files.html}"
+    )
+    lst.item().text(
+        "Comparing Python/XML/YAML: ~link{docs.ros.org/en/rolling/How-To-Guides/\nLaunch-file-different-formats.html}"
+    )
+    lst.item().text("Source: ~link{github.com/tylerjw/easy_ros2_launch_talk}")
+
 
 @slides.slide(debug_boxes=False)
 def thank_you(slide):
-  bg = slide.box().image("layout_images/thank_you_bg.png")
-  slide = slide.overlay(p_top=800)
-  slide.update_style("default", elsie.TextStyle(align="middle"))
-  slide.text("github.com/tylerjw/easy_ros2_launch_talk")
+    bg = slide.box().image("layout_images/thank_you_bg.png")
+    slide = slide.overlay(p_top=800)
+    slide.update_style("default", elsie.TextStyle(align="middle"))
+    slide.text("github.com/tylerjw/easy_ros2_launch_talk")
+
 
 slides.render("easy-launch.pdf")
-
