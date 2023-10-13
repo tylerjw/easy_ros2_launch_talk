@@ -9,15 +9,15 @@
 
   <!-- MoveGroup -->
   <node pkg="moveit_ros_move_group" exec="move_group" output="screen">
-    <param name="robot_description" value="$(var robot_description)" />
-    <param name="robot_description_semantic" value="$(var robot_description_semantic)" />
+    <param name="robot_description" value="$(var robot_description)" type="str" />
+    <param name="robot_description_semantic" value="$(var robot_description_semantic)" type="str" />
     <param from="$(find-pkg-share easy_launch_demo)/config/moveit.yaml" />
   </node>
 
   <!-- RViz -->
   <node pkg="rviz2" exec="rviz2" name="rviz2" output="log" args="-d $(find-pkg-share moveit2_tutorials)/launch/kinova_moveit_config_demo.rviz">
-    <param name="robot_description" value="$(var robot_description)" />
-    <param name="robot_description_semantic" value="$(var robot_description_semantic)" />
+    <param name="robot_description" value="$(var robot_description)" type="str" />
+    <param name="robot_description_semantic" value="$(var robot_description_semantic)" type="str" />
     <param from="$(find-pkg-share easy_launch_demo)/config/moveit.yaml" />
   </node>
 
@@ -27,12 +27,12 @@
 
   <!-- Publish TF -->
   <node pkg="robot_state_publisher" exec="robot_state_publisher" name="robot_state_publisher" output="both" >
-    <param name="robot_description" value="$(var robot_description)" />
+    <param name="robot_description" value="$(var robot_description)" type="str" />
   </node>
 
   <!-- ros2_control -->
   <node pkg="controller_manager" exec="ros2_control_node" output="both" >
-    <param name="robot_description" value="$(var robot_description)" />
+    <param name="robot_description" value="$(var robot_description)" type="str" />
     <param from="$(find-pkg-share kinova_gen3_7dof_robotiq_2f_85_moveit_config)/config/ros2_controllers.yaml" />
   </node>
 
